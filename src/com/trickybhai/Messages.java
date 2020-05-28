@@ -1,7 +1,7 @@
 package com.trickybhai;
 
 import java.util.Scanner;
-
+// This is remote branch Improvise and improve.
 public class Messages {
     static void welcomeMessage(){
         System.out.println("Welcome to Tricky Typist.");
