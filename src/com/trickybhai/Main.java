@@ -1,24 +1,21 @@
 package com.trickybhai;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static boolean repeated = false;
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 	// write your code here
         if (!repeated){
             Messages.welcomeMessage();
         }
-
+        Messages.setDifficulty();
         Messages.startingRace();
-
         String s = takeInput();
         Messages.printingOutput(timeTaken,s);
-
-
-
         System.out.println("Do you want to test again?");
         String again = scanner.nextLine();
         again = again.toLowerCase();
