@@ -35,7 +35,7 @@ public class Main {
         }
     }
 
-    //Used for taking string input and calculating time taken by user to Enter the string.
+    //Used for taking string input and calculating time taken by user to enter the string.
     public static void takeInput(){
         long start = System.currentTimeMillis();
         input = scanner.nextLine();
