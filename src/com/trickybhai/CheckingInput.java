@@ -23,11 +23,10 @@ public class CheckingInput {
         String[] given = givenText.split(" ");
         String[] entered = enteredText.split(" ");
         int correctWords = 0;
-        for(int i=0;i<entered.length;i++){
+        for(int i=0;i<entered.length && i<given.length;i++){
             if (entered[i].equals(given[i])){
                 correctWords+=1;
-            }else
-                System.out.println("Wrong word"+entered[i]);
+            }
         }
         System.out.println("Total correct words: "+correctWords);
         return (correctWords*100)/(double)given.length;
