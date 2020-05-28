@@ -30,10 +30,10 @@ public class Messages {
     }
 
     static void printingOutput(long time, String s){
-        System.out.println("Total Time taken: "+(time*1000)+" s.");
+        System.out.println("Total Time taken: "+(time/1000)+" s.");
         int totalWords = CheckingInput.calculateWords(s);
         System.out.println("Total words typed: "+totalWords);
-        System.out.println("Your average typing speed: "+CheckingInput.calculateWordsPerMinute(totalWords, time));
+        System.out.println("Your average typing speed: "+CheckingInput.calculateWordsPerMinute(totalWords, time)+"WPM.");
 
     }
 }

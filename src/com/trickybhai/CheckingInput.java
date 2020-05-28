@@ -8,10 +8,8 @@ public class CheckingInput {
     }
 
     static int calculateWordsPerMinute(int totalWords, long timeTaken){
-        int inOneSecond = (int) (totalWords/(timeTaken*1000));
+        int inOneSecond = (int) Math.round(totalWords/(timeTaken/(double)1000));
         return inOneSecond*60;
-
-
     }
 
 

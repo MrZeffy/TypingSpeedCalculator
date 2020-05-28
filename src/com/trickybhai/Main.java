@@ -21,6 +21,7 @@ public class Main {
 
         System.out.println("Do you want to test again?");
         String again = scanner.nextLine();
+        again = again.toLowerCase();
         switch (again){
             case "yes" -> {
                 repeated=true;
@@ -31,8 +32,6 @@ public class Main {
                 Thread.sleep(2000);
             }
         }
-
-
     }
 
     private static long timeTaken;
@@ -41,7 +40,7 @@ public class Main {
         long start = System.currentTimeMillis();
         String s1 = scanner.nextLine();
         long end = System.currentTimeMillis();
-        timeTaken = (start-end);
+        timeTaken = (end-start);
         return s1;
     }
 }
