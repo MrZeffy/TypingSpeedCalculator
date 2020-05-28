@@ -1,5 +1,8 @@
 package com.trickybhai;
 
+import java.io.File;
+import java.util.Random;
+
 public class CheckingInput {
 
 
@@ -25,6 +28,14 @@ public class CheckingInput {
         }
         System.out.println("Total correct words: "+correctWords);
         return (correctWords*100)/(double)given.length;
+    }
+
+    static String pickRandomFile(String home){
+        File files = new File(home);
+        File[] files1 = files.listFiles();
+        Random random = new Random();
+        assert files1 != null;
+        return files1[random.nextInt(files1.length)].getPath();
     }
 
 
