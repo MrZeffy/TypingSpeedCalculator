@@ -6,15 +6,18 @@ import java.util.Random;
 public class CheckingInput {
 
 
+    //calculating total words entered.
     static int calculateWords(String s){
         return s.split(" ").length;
     }
 
+    //Calculate typing speed
     static int calculateWordsPerMinute(int totalWords, long timeTaken){
         double inOneSecond = totalWords/(timeTaken/(double)1000);
         return (int) Math.round(inOneSecond*60);
     }
 
+    //Calculating accuracy.
     static double accuracyCalculator(String givenText, String enteredText){
         givenText = givenText.replaceAll("\n", "");
         String[] given = givenText.split(" ");
@@ -30,6 +33,7 @@ public class CheckingInput {
         return (correctWords*100)/(double)given.length;
     }
 
+    //Opening a random file inside a given directory.
     static String pickRandomFile(String home){
         File files = new File(home);
         File[] files1 = files.listFiles();
