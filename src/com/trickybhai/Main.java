@@ -1,26 +1,28 @@
 package com.trickybhai;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    private static final Scanner scanner = new Scanner(System.in);
-    private static boolean repeated = false;
-    public static void main(String[] args) throws InterruptedException {
-	// write your code here
-        if (!repeated){
+    private static long timeTaken; //Used for Calculating time taken by user to type.
+    private static String input;  // Used for storing user's input to be checked.
+    private static final Scanner scanner = new Scanner(System.in); //for scanning.
+    private static boolean repeated = false; // for checking if user wants to play again.
+    public static void main(String[] args) throws InterruptedException, IOException {
+
+        if (!repeated){  //If user plays again, don't print welcome message.
             Messages.welcomeMessage();
         }
+        Messages.setDifficulty(); // asks user to set the difficulty level.
+        Messages.startingRace(); //Start the race.
+        takeInput();             //Taking input from user
+        Messages.printingOutput(timeTaken,input);  //Printing the answer output.
 
-        Messages.startingRace();
-
-        String s = takeInput();
-        Messages.printingOutput(timeTaken,s);
-
-
-
+        //Asking if user wants to test again.
         System.out.println("Do you want to test again?");
         String again = scanner.nextLine();
+        again = again.toLowerCase();
         switch (again){
             case "yes" -> {
                 repeated=true;
@@ -28,20 +30,16 @@ public class Main {
             }
             case "no" -> {
                 System.out.println("Application is shutting down.");
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             }
         }
-
-
     }
 
-    private static long timeTaken;
-
-    public static String takeInput(){
+    //Used for taking string input and calculating time taken by user to enter the string.
+    public static void takeInput(){
         long start = System.currentTimeMillis();
-        String s1 = scanner.nextLine();
+        input = scanner.nextLine();
         long end = System.currentTimeMillis();
-        timeTaken = (start-end);
-        return s1;
+        timeTaken = (end-start);
     }
 }
