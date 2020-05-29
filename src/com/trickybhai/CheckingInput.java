@@ -17,34 +17,51 @@ public class CheckingInput {
         int correctWords = 0;
         int givenWords = 0;
         int typedWords = 0;
+        StringJoiner missed = new StringJoiner(","); //For storing missing words.
+        StringJoiner wrong = new StringJoiner(",");  //For storing mistyped words.
+
 
         //Considering one line at a time, for both userInput and fileText.
-        for (int i=0;i<user.length && i<input.size();i++){
+        for (int i=0;i<2;i++){
 
             //Processing and comparing a single line, word by word.
             String[] inputFileLine = input.get(i).split(" ");
             String[] userInputLine = user[i].split(" ");
             for (int j=0;j<inputFileLine.length && j<userInputLine.length;j++){
+                //Checking at same index.
                 if (inputFileLine[j].equals(userInputLine[j])){
                     correctWords+=1;
                 }else{
                     if (j>0){
+                        //Checking at previous index.
                         if (userInputLine[j].equals(inputFileLine[j-1])){
                             correctWords+=1;
+                            System.out.println("You added an extra word: "+userInputLine[j-1]);
                             continue;
                         }
                     }
                     if (j<inputFileLine.length-1){
+                        //Checking at previous index.
                         if (userInputLine[j].equals(inputFileLine[j+1])){
                             correctWords+=1;
+                            //Adding missing word to missing String.
+                            missed.add(inputFileLine[j]);
                             continue;
                         }
+
                     }
-                    System.out.println("Wrong word: "+userInputLine[j]);
+                    //Adding wrong words to wrong string.
+                    wrong.add(userInputLine[j]);
 
                 }
             }
-            //System.out.println("processed line");
+            //Printing wrong and missing words if any.
+            if (wrong.length()!=0){
+                System.out.println("Wrong words: "+wrong.toString());
+            }
+            if (missed.length()!=0){
+                System.out.println("Missing words: "+missed.toString());
+            }
             givenWords+=inputFileLine.length;
             typedWords+=userInputLine.length;
         }
@@ -66,53 +83,6 @@ public class CheckingInput {
         return sum/(double)(s.size());
 
     }
-
-
-    //Unused Calculating accuracy.
-    /*static String[] accuracyCalculator(String givenText, String enteredText) {
-        String[] z = new String[3];
-        int i = 0;
-        givenText = givenText.replaceAll("[.]", " ");
-        enteredText = enteredText.replaceAll("[.]", " ");
-
-        String[] x = givenText.split(" ");
-        String[] y = enteredText.split(" ");
-
-        List<String> given = new LinkedList<>(Arrays.asList(x));
-        List<String> entered = new LinkedList<>(Arrays.asList(y));
-
-        given.removeAll(Collections.singleton(""));
-        entered.removeAll(Collections.singleton(""));
-
-        int correctWords = 0;
-
-        while (i < entered.size() && i<given.size()) {
-
-            if (i != 0) {
-                if (entered.get(i).equals(given.get(i))){ //|| entered.get(i - 1).equals(given.get(i)) || entered.get(i + 1).equals(given.get(i))) {
-                    correctWords++;
-                } else {
-                    System.out.println("Wrong word " + entered.get(i));
-                }
-            } else {
-                if (entered.get(i).equals(given.get(i)) || entered.get(i + 1).equals(given.get(i))) {
-                    correctWords++;
-                } else {
-                    System.out.println("Wrong word " + entered.get(i));
-                }
-            }
-            i++;
-        }
-        String calc = String.valueOf((correctWords * 100) / (double) given.size());
-
-        z[0] = String.valueOf(given.size());
-        z[1] = String.valueOf(correctWords);
-        z[2] = calc;
-
-        return z;
-    }*/
-
-
-
-
 }
+
+// TODO: Optimize code

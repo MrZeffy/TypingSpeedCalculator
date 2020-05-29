@@ -19,50 +19,10 @@ public class Randomizer extends Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(file));
         String line;
 
-        for (int i = 0; i < 10 && (line=reader.readLine())!=null; i++) {
+        //Putting all the text in textFromFile.
+        for (int i = 0; i < 10 && (line = reader.readLine()) != null; i++) {
 
-                //sent.put(line, i);
-                textFromFile.add(line);
+            textFromFile.add(line);
         }
-
-        /*
-        // Unused methods and fields:
-        int size = 0;
-        int randomNum;
-        ArrayList<Integer> x = new ArrayList<>();
-
-        while (size < 2) {
-            randomNum = ThreadLocalRandom.current().nextInt(0, sent.size());
-
-            if (size == 0) {
-                String key = getKeysFromValue(sent, randomNum);
-                text += key;
-            } else {
-
-                while (x.contains(randomNum)) {
-                    randomNum = ThreadLocalRandom.current().nextInt(0, sent.size());
-                }
-
-                String key = getKeysFromValue(sent, randomNum);
-                text = text + " " + key;
-            }
-            size++;
-            x.add(randomNum);
-        }
-
-        out = Arrays.asList(text.split("[/]"));
-        text = text.replace("/", "");*/
-
     }
-
-    /*public static String getKeysFromValue(Map<String, Integer> hm, Object value) {
-        String z = "";
-        for (Object o : hm.keySet()) {
-            if (hm.get(o).equals(value)) {
-                z = o.toString();
-            }
-        }
-        return z;
-    }*/
-
 }

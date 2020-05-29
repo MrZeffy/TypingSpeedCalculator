@@ -40,6 +40,7 @@ public class Main {
             again = again.toLowerCase();
             switch (again) {
                 case "yes" -> {
+                    selectedText.clear();
                     repeated = true;
                     Main.main(null);
                 }

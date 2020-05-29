@@ -59,17 +59,8 @@ public class Messages extends Main {
         System.out.println();
     }
 
-    //Calls the calculating functions and prints the final output.
-    /*static void printingOutput(long time, String s) {
-        String[] info;
 
-        info = CheckingInput.accuracyCalculator(text, s);
-        System.out.println("Total Time Taken: " + String.format("%.2f", time / (double) 1000) + " s.");
-        System.out.println("Your Average Typing Speed: " + CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[0]), time) + "WPM.");
-        System.out.println("Total Words Typed: " + info[0]);
-        System.out.println("Total Correct Words: " + info[1]);
-        System.out.println("Your Accuracy Is: " + info[2] + "%");
-    }*/
+    //Calls calculating functions and prints output.
     static void printingOutput(long time, String[] user) {
         String[] info;
 
@@ -81,12 +72,12 @@ public class Messages extends Main {
         System.out.println("Total words given: "+info[0]);
         System.out.println("Total Words Typed: " + info[3]);
         System.out.println("Total Correct Words: " + info[1]);
-        System.out.println("Your Accuracy Is: " + info[2] + "%");
+        System.out.println("Your Accuracy Is: " + String.format("%.2f",Double.parseDouble(info[2])) + "%");
         if (repeated){
 
             System.out.println("In This Session");
             System.out.println("Top Speed: "+ Collections.max(scores));
-            System.out.println("Average Speed: "+ CheckingInput.calculateAverage(scores));
+            System.out.println("Average Speed: "+ String.format("%.2f",CheckingInput.calculateAverage(scores)));
         }
     }
 }
