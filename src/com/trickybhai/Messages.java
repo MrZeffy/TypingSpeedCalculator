@@ -1,6 +1,7 @@
 package com.trickybhai;
 
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 // This is remote branch Improvise and improve.
 public class Messages extends Main {
@@ -49,10 +50,12 @@ public class Messages extends Main {
 
         System.out.println("Here is your paragraph:");
         System.out.println();
-        System.out.println(out.get(0));
-        for (int i = 1; i < out.size(); i++) {
-            System.out.println(out.get(i).substring(1));
+        for (int i=0;i<2;i++){
+            String string = textFromFile.get(ThreadLocalRandom.current().nextInt(0,textFromFile.size()));
+            selectedText.add(string);
+            System.out.println(string);
         }
+        System.out.println();
     }
 
     //Calls the calculating functions and prints the final output.
@@ -63,6 +66,17 @@ public class Messages extends Main {
         System.out.println("Total Time Taken: " + String.format("%.2f", time / (double) 1000) + " s.");
         System.out.println("Your Average Typing Speed: " + CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[0]), time) + "WPM.");
         System.out.println("Total Words Typed: " + info[0]);
+        System.out.println("Total Correct Words: " + info[1]);
+        System.out.println("Your Accuracy Is: " + info[2] + "%");
+    }
+    static void printingOutput(long time, String[] s) {
+        String[] info;
+
+        info = CheckingInput.accuracyCalculator(selectedText, s);
+        System.out.println("Total Time Taken: " + String.format("%.2f", time / (double) 1000) + " s.");
+        System.out.println("Your Average Typing Speed: " + CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[3]), time) + "WPM.");
+        System.out.println("Total words given: "+info[0]);
+        System.out.println("Total Words Typed: " + info[3]);
         System.out.println("Total Correct Words: " + info[1]);
         System.out.println("Your Accuracy Is: " + info[2] + "%");
     }

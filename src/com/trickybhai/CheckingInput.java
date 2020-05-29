@@ -1,9 +1,6 @@
 package com.trickybhai;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CheckingInput {
 
@@ -13,7 +10,35 @@ public class CheckingInput {
         return (int) Math.round(inOneSecond * 60);
     }
 
-    //Calculating accuracy.
+    //Calculator overloaded.
+    static String[] accuracyCalculator(ArrayList<String> input, String[] user){
+        String[] z = new String[4];
+        int correctWords = 0;
+        int givenWords = 0;
+        int typedWords = 0;
+        for (int i=0;i<input.size();i++){
+            System.out.println("Processing line");
+            String[] inputFileLine = input.get(i).split(" ");
+            String[] userInputLine = user[i].split(" ");
+            for (int j=0;j<inputFileLine.length && j<userInputLine.length;j++){
+                if (inputFileLine[j].equals(userInputLine[j])){
+                    correctWords+=1;
+                }
+            }
+            System.out.println("processed line");
+            givenWords+=inputFileLine.length;
+            typedWords+=userInputLine.length;
+        }
+        z[0] = String.valueOf(givenWords);
+        z[1] = String.valueOf(correctWords);
+        z[2] = String.valueOf((correctWords * 100) / (double) givenWords);
+        z[3] = String.valueOf(typedWords);
+
+        return z;
+    }
+
+
+    //Unused Calculating accuracy.
     static String[] accuracyCalculator(String givenText, String enteredText) {
         String[] z = new String[3];
         int i = 0;
@@ -31,10 +56,10 @@ public class CheckingInput {
 
         int correctWords = 0;
 
-        while (i < entered.size()) {
+        while (i < entered.size() && i<given.size()) {
 
             if (i != 0) {
-                if (entered.get(i).equals(given.get(i)) || entered.get(i - 1).equals(given.get(i)) || entered.get(i + 1).equals(given.get(i))) {
+                if (entered.get(i).equals(given.get(i))){ //|| entered.get(i - 1).equals(given.get(i)) || entered.get(i + 1).equals(given.get(i))) {
                     correctWords++;
                 } else {
                     System.out.println("Wrong word " + entered.get(i));
@@ -56,6 +81,8 @@ public class CheckingInput {
 
         return z;
     }
+
+
 
 
 }
