@@ -39,7 +39,7 @@ public class CheckingInput {
 
 
     //Unused Calculating accuracy.
-    static String[] accuracyCalculator(String givenText, String enteredText) {
+    /*static String[] accuracyCalculator(String givenText, String enteredText) {
         String[] z = new String[3];
         int i = 0;
         givenText = givenText.replaceAll("[.]", " ");
@@ -80,7 +80,7 @@ public class CheckingInput {
         z[2] = calc;
 
         return z;
-    }
+    }*/
 
 
 

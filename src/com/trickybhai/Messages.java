@@ -59,7 +59,7 @@ public class Messages extends Main {
     }
 
     //Calls the calculating functions and prints the final output.
-    static void printingOutput(long time, String s) {
+    /*static void printingOutput(long time, String s) {
         String[] info;
 
         info = CheckingInput.accuracyCalculator(text, s);
@@ -68,7 +68,7 @@ public class Messages extends Main {
         System.out.println("Total Words Typed: " + info[0]);
         System.out.println("Total Correct Words: " + info[1]);
         System.out.println("Your Accuracy Is: " + info[2] + "%");
-    }
+    }*/
     static void printingOutput(long time, String[] s) {
         String[] info;
 
