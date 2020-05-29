@@ -1,47 +1,61 @@
 package com.trickybhai;
 
-import java.io.File;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CheckingInput {
 
-
-    //calculating total words entered.
-    static int calculateWords(String s){
-        return s.split(" ").length;
-    }
-
     //Calculate typing speed
-    static int calculateWordsPerMinute(int totalWords, long timeTaken){
-        double inOneSecond = totalWords/(timeTaken/(double)1000);
-        return (int) Math.round(inOneSecond*60);
+    static int calculateWordsPerMinute(int totalWords, long timeTaken) {
+        double inOneSecond = totalWords / (timeTaken / (double) 1000);
+        return (int) Math.round(inOneSecond * 60);
     }
 
     //Calculating accuracy.
-    static double accuracyCalculator(String givenText, String enteredText){
-        givenText = givenText.replaceAll("\n", "");
-        String[] given = givenText.split(" ");
-        String[] entered = enteredText.split(" ");
+    static String[] accuracyCalculator(String givenText, String enteredText) {
+        String[] z = new String[3];
+        int i = 0;
+        givenText = givenText.replaceAll("[.]", " ");
+        enteredText = enteredText.replaceAll("[.]", " ");
+
+        String[] x = givenText.split(" ");
+        String[] y = enteredText.split(" ");
+
+        List<String> given = new LinkedList<>(Arrays.asList(x));
+        List<String> entered = new LinkedList<>(Arrays.asList(y));
+
+        given.removeAll(Collections.singleton(""));
+        entered.removeAll(Collections.singleton(""));
+
         int correctWords = 0;
-        for(int i=0;i<entered.length;i++){
-            if (entered[i].equals(given[i])){
-                correctWords+=1;
-            }else
-                System.out.println("Wrong word"+entered[i]);
+
+        while (i < entered.size()) {
+
+            if (i != 0) {
+                if (entered.get(i).equals(given.get(i)) || entered.get(i - 1).equals(given.get(i)) || entered.get(i + 1).equals(given.get(i))) {
+                    correctWords++;
+                } else {
+                    System.out.println("Wrong word " + entered.get(i));
+                }
+            } else {
+                if (entered.get(i).equals(given.get(i)) || entered.get(i + 1).equals(given.get(i))) {
+                    correctWords++;
+                } else {
+                    System.out.println("Wrong word " + entered.get(i));
+                }
+            }
+            i++;
         }
-        System.out.println("Total correct words: "+correctWords);
-        return (correctWords*100)/(double)given.length;
-    }
+        String calc = String.valueOf((correctWords * 100) / (double) given.size());
 
-    //Opening a random file inside a given directory.
-    static String pickRandomFile(String home){
-        File files = new File(home);
-        File[] files1 = files.listFiles();
-        Random random = new Random();
-        assert files1 != null;
-        return files1[random.nextInt(files1.length)].getPath();
-    }
+        z[0] = String.valueOf(given.size());
+        z[1] = String.valueOf(correctWords);
+        z[2] = calc;
 
+        return z;
+    }
 
 
 }
