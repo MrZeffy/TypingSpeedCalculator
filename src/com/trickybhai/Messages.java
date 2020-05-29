@@ -1,5 +1,6 @@
 package com.trickybhai;
 
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -44,7 +45,7 @@ public class Messages extends Main {
 
 
         //Reading
-        System.out.println("Press any key to start.");
+        System.out.println("Press Enter to start.");
         scanner.nextLine();
         System.out.println("The fun is about to begin");
 
@@ -69,15 +70,23 @@ public class Messages extends Main {
         System.out.println("Total Correct Words: " + info[1]);
         System.out.println("Your Accuracy Is: " + info[2] + "%");
     }*/
-    static void printingOutput(long time, String[] s) {
+    static void printingOutput(long time, String[] user) {
         String[] info;
 
-        info = CheckingInput.accuracyCalculator(selectedText, s);
+        info = CheckingInput.accuracyCalculator(selectedText, user);
+        int speed = CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[3]), time);
+        scores.add(speed);
         System.out.println("Total Time Taken: " + String.format("%.2f", time / (double) 1000) + " s.");
-        System.out.println("Your Average Typing Speed: " + CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[3]), time) + "WPM.");
+        System.out.println("Typing Speed: " + speed + "WPM.");
         System.out.println("Total words given: "+info[0]);
         System.out.println("Total Words Typed: " + info[3]);
         System.out.println("Total Correct Words: " + info[1]);
         System.out.println("Your Accuracy Is: " + info[2] + "%");
+        if (repeated){
+
+            System.out.println("In This Session");
+            System.out.println("Top Speed: "+ Collections.max(scores));
+            System.out.println("Average Speed: "+ CheckingInput.calculateAverage(scores));
+        }
     }
 }

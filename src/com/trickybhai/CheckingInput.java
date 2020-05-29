@@ -11,21 +11,40 @@ public class CheckingInput {
     }
 
     //Calculator overloaded.
-    static String[] accuracyCalculator(ArrayList<String> input, String[] user){
+    static String[] accuracyCalculator(ArrayList<String> input, String[] user) throws NullPointerException{
+        //String array for storing info.
         String[] z = new String[4];
         int correctWords = 0;
         int givenWords = 0;
         int typedWords = 0;
-        for (int i=0;i<input.size();i++){
-            System.out.println("Processing line");
+
+        //Considering one line at a time, for both userInput and fileText.
+        for (int i=0;i<user.length && i<input.size();i++){
+
+            //Processing and comparing a single line, word by word.
             String[] inputFileLine = input.get(i).split(" ");
             String[] userInputLine = user[i].split(" ");
             for (int j=0;j<inputFileLine.length && j<userInputLine.length;j++){
                 if (inputFileLine[j].equals(userInputLine[j])){
                     correctWords+=1;
+                }else{
+                    if (j>0){
+                        if (userInputLine[j].equals(inputFileLine[j-1])){
+                            correctWords+=1;
+                            continue;
+                        }
+                    }
+                    if (j<inputFileLine.length-1){
+                        if (userInputLine[j].equals(inputFileLine[j+1])){
+                            correctWords+=1;
+                            continue;
+                        }
+                    }
+                    System.out.println("Wrong word: "+userInputLine[j]);
+
                 }
             }
-            System.out.println("processed line");
+            //System.out.println("processed line");
             givenWords+=inputFileLine.length;
             typedWords+=userInputLine.length;
         }
@@ -35,6 +54,17 @@ public class CheckingInput {
         z[3] = String.valueOf(typedWords);
 
         return z;
+    }
+
+    //Calculating Average speed.
+    static double calculateAverage(ArrayList<Integer> s){
+        int sum =0;
+        for (int i:
+             s) {
+            sum+=i;
+        }
+        return sum/(double)(s.size());
+
     }
 
 

@@ -1,21 +1,23 @@
 package com.trickybhai;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.InputStreamReader;
+import java.util.*;
+/*import java.util.LinkedList;
+import java.util.List;*/
 
 @SuppressWarnings("ConstantConditions")
 public class Main {
 
+    static ArrayList<Integer> scores = new ArrayList<>(); //for maintaining scores.
     private static final Scanner scanner = new Scanner(System.in); //for scanning.
     public static String path;
-    public static String text = ""; //Read input from file.
-    public static List<String> out = new LinkedList<>();
+    //public static String text = ""; //Read input from file.
+    //public static List<String> out = new LinkedList<>();
     private static long timeTaken; //Used for Calculating time taken by user to type.
     private static String[] input;  // Used for storing user's input to be checked.
-    private static boolean repeated = false; // for checking if user wants to play again.
+    static boolean repeated = false; // for checking if user wants to play again.
     static ArrayList<String> textFromFile = new ArrayList<>();
     static ArrayList<String> selectedText = new ArrayList<>();
     public static void main(String[] args) throws InterruptedException, IOException {
@@ -53,12 +55,13 @@ public class Main {
     }
 
     //Used for taking string input and calculating time taken by user to enter the string.
-    public static void takeInput() {
+    public static void takeInput() throws IOException {
         long start = System.currentTimeMillis();
-        input = new String[textFromFile.size()];
+        input = new String[selectedText.size()];
 //        input = scanner.nextLine();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         for (int i=0;i<2;i++){
-            input[i] = scanner.nextLine();
+            input[i] = bufferedReader.readLine();
         }
         long end = System.currentTimeMillis();
         timeTaken = (end - start);
