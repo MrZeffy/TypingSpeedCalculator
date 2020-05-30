@@ -80,8 +80,8 @@ public class Messages extends Main {
         if (repeated) {
 
             System.out.println("In This Session");
-            System.out.println("Top Speed: " + Collections.max(scores));
-            System.out.println("Average Speed: " + String.format("%.2f", CheckingInput.calculateAverage()));
+            System.out.println("Top Speed: " + Collections.max(scores)+"WPM");
+            System.out.println("Average Speed: " + String.format("%.2f", CheckingInput.calculateAverage())+"WPM");
         }
     }
 }

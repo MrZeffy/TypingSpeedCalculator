@@ -30,7 +30,9 @@ public class CheckingInput {
             //Processing and comparing a single line, word by word.
             String[] inputFileLine = Main.selectedText.get(i).split(" ");
             String[] userInputLine = user[i].split(" ");
-
+            typedWords+=userInputLine.length;
+            givenWords+=inputFileLine.length;
+            int balance=0;
             for (int x = 0; x < userInputLine.length && x < inputFileLine.length; x++) {
 
                 String w = userInputLine[x];
@@ -38,21 +40,21 @@ public class CheckingInput {
                 //Checking if its the first word for off by one check. If so, we don't do the x-1 check
 
                 if (x > 0) {
-                    if (w.equals(inputFileLine[x])) {
+                    if (w.equals(inputFileLine[x+balance])) {
                         correctWords++;
-                    } else if (w.equals(inputFileLine[x - 1])) {
+                    } else if (w.equals(inputFileLine[(x - 1)+balance])) {
                         correctWords++;
                         offby++;
-                        missed.add(w);
+                        balance-=1;
                     } else if (x + 1 != userInputLine.length) {
-                        if (w.equals(inputFileLine[x + 1])) {
+                        if (w.equals(inputFileLine[(x + 1)+balance])) {
                             correctWords++;
-                            offby++;
-                            missed.add(w);
+                            missed.add(inputFileLine[x+balance]);
+                            balance+=1;
                         }
                     } else {
                         wrong.add(w);
-                        right.add(inputFileLine[x]);
+                        right.add(inputFileLine[x+balance]);
                     }
                 } else {
                     if (w.equals(inputFileLine[x])) {
@@ -66,8 +68,6 @@ public class CheckingInput {
                         right.add(inputFileLine[x]);
                     }
                 }
-                typedWords++;
-                givenWords++;
             }
         }
 
@@ -86,6 +86,8 @@ public class CheckingInput {
         System.out.println(wrong);
         System.out.println("Correct Words: ");
         System.out.println(right);
+        System.out.println("Missed Words: ");
+        System.out.println(missed);
 
         return z;
     }
