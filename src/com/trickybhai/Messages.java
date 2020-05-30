@@ -34,7 +34,7 @@ public class Messages extends Main {
         difficulty = difficulty.toLowerCase();
         //Adding path according to difficulty. Testing paragraphs are organized
         // in subfolders based on categories.
-        Main.path = Main.path + difficulty + ".txt"; //pickRandomFile picks a random file
+        Main.path = "com/trickybhai/resources/" + difficulty + ".txt"; //pickRandomFile picks a random file
         // inside the given folder and return it's path.
 
 
@@ -51,8 +51,8 @@ public class Messages extends Main {
 
         System.out.println("Here is your paragraph:");
         System.out.println();
-        for (int i=0;i<2;i++){
-            String string = textFromFile.get(ThreadLocalRandom.current().nextInt(0,textFromFile.size()));
+        for (int i = 0; i < 2; i++) {
+            String string = textFromFile.get(ThreadLocalRandom.current().nextInt(0, textFromFile.size()));
             selectedText.add(string);
             System.out.println(string);
         }
@@ -64,20 +64,24 @@ public class Messages extends Main {
     static void printingOutput(long time, String[] user) {
         String[] info;
 
-        info = CheckingInput.accuracyCalculator(selectedText, user);
+        info = CheckingInput.accuracyCalculator(user);
         int speed = CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[3]), time);
         scores.add(speed);
         System.out.println("Total Time Taken: " + String.format("%.2f", time / (double) 1000) + " s.");
         System.out.println("Typing Speed: " + speed + "WPM.");
-        System.out.println("Total words given: "+info[0]);
+        System.out.println("Total words given: " + info[0]);
         System.out.println("Total Words Typed: " + info[3]);
         System.out.println("Total Correct Words: " + info[1]);
-        System.out.println("Your Accuracy Is: " + String.format("%.2f",Double.parseDouble(info[2])) + "%");
-        if (repeated){
+        System.out.println("Your Accuracy Is: " + String.format("%.2f", Double.parseDouble(info[2])) + "%");
+
+        if (!info[4].equalsIgnoreCase("NA")) {
+            System.out.println("Number of times you were off by one: " + info[4]);
+        }
+        if (repeated) {
 
             System.out.println("In This Session");
-            System.out.println("Top Speed: "+ Collections.max(scores));
-            System.out.println("Average Speed: "+ String.format("%.2f",CheckingInput.calculateAverage(scores)));
+            System.out.println("Top Speed: " + Collections.max(scores));
+            System.out.println("Average Speed: " + String.format("%.2f", CheckingInput.calculateAverage()));
         }
     }
 }
