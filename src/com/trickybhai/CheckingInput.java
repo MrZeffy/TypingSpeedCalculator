@@ -42,10 +42,10 @@ public class CheckingInput {
                 if (x > 0) {
                     if (w.equals(inputFileLine[x+balance])) {
                         correctWords++;
-                    } else if (w.equals(inputFileLine[(x - 1)+balance])) {
+                    } else if (w.equals(inputFileLine[(x - 1)+balance])) {  //Checking at balanced indices
                         correctWords++;
                         offby++;
-                        balance-=1;
+                        balance-=1; //Added a balance, so that next the index gets balanced.
                     } else if (x + 1 != userInputLine.length) {
                         if (w.equals(inputFileLine[(x + 1)+balance])) {
                             correctWords++;
@@ -81,13 +81,17 @@ public class CheckingInput {
         } else {
             z[4] = "NA";
         }
+        if (wrong.length()!=0){
+            System.out.println("Wrong Words: ");
+            System.out.println(wrong);
+            System.out.println("Correct Words: ");
+            System.out.println(right);
+        }
+        if (missed.length()!=0){
+            System.out.println("Missed Words: ");
+            System.out.println(missed);
+        }
 
-        System.out.println("Wrong Words: ");
-        System.out.println(wrong);
-        System.out.println("Correct Words: ");
-        System.out.println(right);
-        System.out.println("Missed Words: ");
-        System.out.println(missed);
 
         return z;
     }
