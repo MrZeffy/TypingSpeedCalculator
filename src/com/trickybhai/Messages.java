@@ -1,79 +1,87 @@
 package com.trickybhai;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
 // This is remote branch Improvise and improve.
-public class Messages {
+public class Messages extends Main {
+
+    static final Scanner scanner = new Scanner(System.in);
+    static String difficulty; //To set difficulty level.
 
     //Message to be shown on startup.
-    static void welcomeMessage(){
+    static void welcomeMessage() {
         System.out.println("Welcome to Tricky Typist.");
-        System.out.println("=====================================================================");
-        System.out.println("||  1. We'll give you a paragraph to write.                        ||");
-        System.out.println("||  2. The program will calculate your typing speed and accuracy.  ||");
-        System.out.println("||  3. Press Enter at the end of the Input.                        ||");
-        System.out.println("=====================================================================");
+        System.out.println("===========================================================================");
+        System.out.println("||  1. We'll give you a paragraph to write.                              ||");
+        System.out.println("||  2. The program will calculate your typing speed and accuracy.        ||");
+        System.out.println("||  3. Press Enter after you have finished writing the entire paragraph  ||");
+        System.out.println("===========================================================================");
     }
 
+    //sets the difficulty level.
+    static void setDifficulty() {
+        System.out.println("Set the difficulty level:");
+        System.out.println("(Easy/Intermediate/Hard)");
+        String s2 = scanner.nextLine();
+        s2 = s2.toLowerCase();
+        switch (s2) {
+            case "easy", "intermediate", "hard" -> difficulty = s2;
+            default -> setDifficulty();
+        }
 
-    static Scanner scanner = new Scanner(System.in);
-    static String difficulty; //To set difficulty level.
-    static String text; //Read input from file.
-
-    //Main course of the meal.
-    static void startingRace() throws InterruptedException, IOException {
-
-        //Default path of demo text.
-        String path ="src\\com\\trickybhai\\typingParagraphs\\";
-
-        difficulty=difficulty.toLowerCase();
+        difficulty = difficulty.toLowerCase();
         //Adding path according to difficulty. Testing paragraphs are organized
         // in subfolders based on categories.
-        path = CheckingInput.pickRandomFile(path+difficulty+"\\"); //pickRandomFile picks a random file
+        Main.path = "com/trickybhai/resources/" + difficulty + ".txt"; //pickRandomFile picks a random file
         // inside the given folder and return it's path.
 
 
+    }
+
+    //Main course of the meal.
+    static void startingRace() {
+
 
         //Reading
-        text = Files.readString(Path.of(path));
-
-        System.out.println("Press any key to start.");
+        System.out.println("Press Enter to start.");
         scanner.nextLine();
         System.out.println("The fun is about to begin");
 
         System.out.println("Here is your paragraph:");
         System.out.println();
-        System.out.println(text); //printing the demo text.
+        for (int i = 0; i < 2; i++) {
+            String string = textFromFile.get(ThreadLocalRandom.current().nextInt(0, textFromFile.size()));
+            selectedText.add(string);
+            System.out.println(string);
+        }
         System.out.println();
-        System.out.println();
-        System.out.println("Ready");
-        Thread.sleep(1200);
-        System.out.println("Set");
-        Thread.sleep(1200);
-        System.out.print("GO ========>>>");
     }
 
-    //Calls the calculating functions and prints the final output.
-    static void printingOutput(long time, String s){
-        System.out.println("Total Time taken: "+String.format("%.2f",time/(double)1000)+" s.");
-        int totalWords = CheckingInput.calculateWords(s);
-        System.out.println("Total words typed: "+totalWords);
-        System.out.println("Your average typing speed: "+CheckingInput.calculateWordsPerMinute(totalWords, time)+"WPM.");
-        System.out.println("Your accuracy is: "+String.format("%.2f",CheckingInput.accuracyCalculator(text, s))+"%");
-    }
 
-    //sets the difficulty level.
-    static void setDifficulty(){
-        System.out.println("Set the difficulty level:");
-        System.out.println("(Easy/Intermediate/Legend)");
-        String s2 = scanner.nextLine();
-        s2=s2.toLowerCase();
-        switch (s2){
-            case "easy", "intermediate", "legend" -> difficulty=s2;
-            default -> setDifficulty();
-         }
+    //Calls calculating functions and prints output.
+    static void printingOutput(long time, String[] user) {
+        String[] info;
 
+        info = CheckingInput.accuracyCalculator(user);
+        int speed = CheckingInput.calculateWordsPerMinute(Integer.parseInt(info[3]), time);
+        scores.add(speed);
+        System.out.println("Total Time Taken: " + String.format("%.2f", time / (double) 1000) + " s.");
+        System.out.println("Typing Speed: " + speed + "WPM.");
+        System.out.println("Total words given: " + info[0]);
+        System.out.println("Total Words Typed: " + info[3]);
+        System.out.println("Total Correct Words: " + info[1]);
+        System.out.println("Your Accuracy Is: " + String.format("%.2f", Double.parseDouble(info[2])) + "%");
+
+        if (!info[4].equalsIgnoreCase("NA")) {
+            System.out.println("Number of times you were off by one: " + info[4]);
+        }
+        if (repeated) {
+
+            System.out.println("In This Session");
+            System.out.println("Top Speed: " + Collections.max(scores)+"WPM");
+            System.out.println("Average Speed: " + String.format("%.2f", CheckingInput.calculateAverage())+"WPM");
+        }
     }
 }
